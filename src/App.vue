@@ -1,32 +1,92 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <div id="home">
+    test {{name}}
+    <h1 @click="actClickMe()"> click me </h1>
+    <input type="text" placeholder="enter email"  v-model="email" />  {{errorMessaage}}
+    <input type="password" placeholder="enter password"  v-model="password" />
+
+    <button type="button" @click="actClickMe()" value="send">send11</button>
+
+    <child-tag :propsName="lastName" :filterData="filterData"></child-tag>
+
+    <div v-for="(item, key) in filterData" :key="key">
+      <h2>{{item}}</h2>
     </div>
-    <router-view/>
+
+
+    <hr/>
+
+    <div v-for="(item, key) in filterData" :key="key+100">
+       <div v-if="item == 'orange'">
+         this is {{item}}
+       </div>
+       <div v-else>
+            this is not orange 
+       </div>
+    </div>
+  <router-view></router-view>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+  import Child from './components/Child.vue'
 
-#nav {
-  padding: 30px;
+  export default {
+    data() { // data: function () // init state of variable
+      return {
+        name: 'blr',
+        lastName: 'delhi',
+        email: '',
+        password: '',
+        dataset: {},
+        filterData: ['apple', 'orange', 'banana', 'mango'],
+        errorMessaage: ''
+      }
+    },
+    methods: { // methods: function
+      actClickMe () {
+        this.dataset.email = this.email;
+        this.dataset.password = this.password;
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+        console.log("this.dataset", this.dataset)
 
-    &.router-link-exact-active {
-      color: #42b983;
+      },
+      checkEmail (val) {
+        if (val.length == 10) {
+            this.errorMessaage = "success"
+        } else {
+          this.errorMessaage = "fail"
+
+        } 
+      }
+    
+    },
+    mounted () { // mounted: function
+        this.name = "welcome"
+      // main function
+      console.log("mounted")
+
+    },
+    created () { // created: function
+    
+      console.log("created")
+    
+    },
+    watch: { // watch: function
+      email (newValue) { // watch: function
+      
+        // console.log("email", newValue)
+        this.checkEmail(newValue)
+
+      
+      }
+    }, 
+    components : {
+      "child-tag": Child
     }
   }
-}
+</script>
+
+<style scoped>
+
 </style>
