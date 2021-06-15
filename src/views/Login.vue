@@ -1,17 +1,23 @@
 <template>
   <div class="main-login">
     <div>
-        <img class="login-image" src="../assets/jr-korpa-FmUM5YoM2k0-unsplash.jpg"/>
+        <img class="login-image" src="https://www.w3schools.com/howto/img_girl.jpg"/>
     </div>
 
+
+
     <div class="login-div">
+
+              <el-button type="primary" round>Primary</el-button>
+
         <el-input
         placeholder="Please input"
         v-model="email"
-        clearable>
+        round 
+        clearable >
         </el-input>
        <div> {{emailError}} </div>
-        <el-input placeholder="Please input password" v-model="password" show-password></el-input>
+        <el-input placeholder="Please input password" v-model="password" show-password round></el-input>
 
          <el-button type="success" @click="getSuccess()">Success</el-button>
 
@@ -65,15 +71,20 @@ methods : {
     }
     .login-div {
         
-    position: absolute;
-    top: 5%;
-    right: 30%;
-    background-color: red;
-    height: 26vh;
-    width: 34vw;
-    padding: 7%;
-
-    
-
+        position: absolute;
+        top: 30%;
+        right: 10%;
+        background-color: red;
+        height: 26vh;
+        width: 34vw;
+        padding: 1%;
     }
+
+    @media only screen and (max-width: 600px) {
+  .login-div  {
+    background-color: lightblue;
+    height: auto;
+        width: auto;
+  }
+}
 </style>
