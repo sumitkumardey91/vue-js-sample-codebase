@@ -1,9 +1,6 @@
 <template>
   <div>
-      
     <router-view></router-view>
-    
-
   </div>
 </template>
 
@@ -13,6 +10,11 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss">
+  @import "@/assets/scss/_variable.scss";
+  @import '@/assets/scss/_mixins.scss' ;
+  @import '@/assets/scss/_base.scss' ;
+
+
 
 </style>

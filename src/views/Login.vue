@@ -23,39 +23,58 @@
 
     </div>
 
+    <div v-for="(data, index) in dataset" :key="index">
+        <h1>{{data.Name}}</h1>
+    </div>
+
   </div>
 </template>
 
 <script>
-export default {
-data () {
-    return {
-        email: '',
-        password: '',
-        emailError: ''
-    }
-},
-watch : {
-    email (newval) {
 
-        if (newval.includes('@') == true) {
-           // alert('valid')
-           this.emailError = "success"
-        } else {
-          //  alert('notvalid')
-                     this.emailError = "fail"
+    import  { getPin } from '../services/pin/actGetPin'
 
+    export default {
+        data () {
+            return {
+                email: '',
+                password: '',
+                emailError: '',
+                dataset: []
+            }
+        },
+        watch : {
+            email () {
+
+                // if (newval.includes('@') == true) {
+                // // alert('valid')
+                // this.emailError = "success"
+                // } else {
+                // //  alert('notvalid')
+                //             this.emailError = "fail"
+
+                // }
+            }   
+        },
+        methods : {
+            getSuccess () {
+
+                getPin(this.email).then((res) => {
+                    console.log("success",res)
+                    this.dataset = res.data[0].PostOffice
+                    if (res.status != 200) {
+                        // error 
+                    }
+                }).catch((err) => {
+                    console.log("catch", err)
+                })
+
+
+
+
+            }
         }
-    }   
-},
-methods : {
-    getSuccess () {
-
-        if (this.emailError == "success")
-        this.$router.push({name: 'About'})
     }
-}
-}
 </script>
 
 <style>
