@@ -34,6 +34,8 @@
 
     import  { getPin } from '../services/pin/actGetPin'
 
+    import { Mixins } from '@/mixins/mixins.code.js'
+
     export default {
         data () {
             return {
@@ -46,34 +48,42 @@
         watch : {
             email () {
 
-                // if (newval.includes('@') == true) {
-                // // alert('valid')
-                // this.emailError = "success"
-                // } else {
-                // //  alert('notvalid')
-                //             this.emailError = "fail"
 
-                // }
+                 if (!(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(this.email)))
+                {
+                     this.emailError = "Invalid email"
+                } else {
+                    this.emailError = ""
+                }
+              
             }   
         },
         methods : {
             getSuccess () {
-
+                this.OpenLoader();
                 getPin(this.email).then((res) => {
                     console.log("success",res)
                     this.dataset = res.data[0].PostOffice
+                    this.CloseLoader()
+
+                    this.$message.error('Oops, username password wrong.');// toust
+
+
                     if (res.status != 200) {
                         // error 
                     }
                 }).catch((err) => {
                     console.log("catch", err)
+                    this.CloseLoader()
+
                 })
 
 
 
 
             }
-        }
+        },
+        mixins: [Mixins]
     }
 </script>
 
