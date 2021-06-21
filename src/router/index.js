@@ -28,6 +28,14 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "Dymanic" */ '../views/Dynamic.vue')  // this style
   },
+  {
+    path: '/table',
+    name: 'table',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "table" */ '../views/Table.vue')  // this style
+  },
   { 
     path: "*", 
     component: () => import(/* webpackChunkName: "PageNotFound" */ '../views/PageNotFound.vue') 
