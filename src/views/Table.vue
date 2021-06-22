@@ -1,12 +1,15 @@
 <template>
     <div>
 
-             <div>
-        <input type="radio" value="all" v-model="cityValue" > all
-        </div>
-        <div v-for="(item, index) in allCityName" :key="index">
-            <input type="radio" :value="item" v-model="cityValue" > {{item}}
+      <div class="flex-box">
+        <div>
+           <div>
+              <input type="radio" value="all" v-model="cityValue" > all
+          </div>
+            <div v-for="(item, index) in allCityName" :key="index">
+                <input type="radio" :value="item" v-model="cityValue" > {{item}}
 
+            </div>
         </div>
 
         <div>
@@ -18,6 +21,20 @@
           </select>
         </div>
 
+        <div>
+           <el-input placeholder="Please input Name" v-model="filterByName" @input="actSearchFilter"></el-input>
+        </div>
+
+
+
+        <div>
+          <el-checkbox-group v-model="checkList">
+            <el-checkbox v-for="(name, i) in nameArr" :key="i" :label="name" ></el-checkbox>
+          </el-checkbox-group>
+
+        </div>
+
+      </div>
 
         
         <el-table
@@ -58,7 +75,9 @@
         allCityName: [],
         mainTableData: [],
         nameValue: '',
-        nameArr: []
+        nameArr: [],
+        filterByName: '',
+        checkList: []
       }
     },
     watch: {
@@ -68,9 +87,47 @@
         },
         nameValue (name) {
             console.log(name)
+        },
+        // filterByName (val) {
+        //   this.actSearchFilter(val);
+        // }
+
+        checkList (nameList) {
+          this.filterNameListMul(nameList);
         }
     },
     methods: {
+      filterNameListMul (names) {
+
+        console.log("this.", names);
+
+
+        this.tableData = this.mainTableData;
+        this.tableData = this.tableData.filter((item) => {
+           
+            let isAvai = names.find((name) => {
+               if (name == item.name) {
+                 return name;
+               }
+             })
+
+             if (isAvai != undefined) {
+               return item;
+             }
+           
+        });
+
+
+      },
+      actSearchFilter (name) {
+         this.tableData = this.mainTableData;
+          this.tableData = this.tableData.filter((item) => {
+              if (((item.name).toLowerCase()).includes(name)) {
+                  return item;
+              }
+          });
+    
+      },
       formatter(row) {
         return row.address;
       },
@@ -175,11 +232,26 @@
 
 
 
+    },
+    beforeRouteEnter (to, from, next) {
+         
+
+      if (localStorage.getItem("token")) {
+        next();
+      } else {
+        next("/")
+      }
+
+
     }
+
   }
 </script>
 
 <style lang="scss" scoped>
-
+  .flex-box {
+    display: flex;
+    justify-content: space-between;
+  }
 </style>
 

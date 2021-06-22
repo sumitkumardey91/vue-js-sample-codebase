@@ -61,12 +61,16 @@
         methods : {
             getSuccess () {
                 this.OpenLoader();
+
                 getPin(this.email).then((res) => {
                     console.log("success",res)
                     this.dataset = res.data[0].PostOffice
                     this.CloseLoader()
 
+                    localStorage.setItem("token", "ahtdhwbdwhgdgwdujbd")
+
                     this.$message.error('Oops, username password wrong.');// toust
+
 
 
                     if (res.status != 200) {
@@ -77,6 +81,7 @@
                     this.CloseLoader()
 
                 })
+
 
 
 
