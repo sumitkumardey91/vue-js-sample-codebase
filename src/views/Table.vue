@@ -26,6 +26,25 @@
         </div>
 
 
+        <div>
+
+            <el-select
+            v-model="multipleItem"
+            multiple
+            filterable
+            allow-create
+            default-first-option
+            placeholder="Choose tags for your article">
+            <el-option
+              v-for="(item) in nameArr"
+              :key="item"
+              :label="item"
+              :value="item">
+            </el-option>
+          </el-select>
+        </div>
+
+
 
         <div>
           <el-checkbox-group v-model="checkList">
@@ -40,7 +59,10 @@
         <el-table
             :data="tableData"
             :default-sort = "{prop: 'date', order: 'descending'}"
-            style="width: 100%">
+            style="width: 100%"
+            :empty-text="'no row'"
+            @row-click="ownFun"
+            >
 
             <el-table-column
             prop="date"
@@ -77,7 +99,8 @@
         nameValue: '',
         nameArr: [],
         filterByName: '',
-        checkList: []
+        checkList: [],
+        multipleItem: []
       }
     },
     watch: {
@@ -94,9 +117,16 @@
 
         checkList (nameList) {
           this.filterNameListMul(nameList);
+        },
+        multipleItem (val) {
+          console.log("val", val)
+          this.filterNameListMul(val)
         }
     },
     methods: {
+      ownFun (val) {
+        console.log("val", val)
+      },
       filterNameListMul (names) {
 
         console.log("this.", names);
