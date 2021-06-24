@@ -34,3 +34,17 @@ export const postPin = async (pin) => {
      return data;
 
 }
+
+
+export const postDataPost = async (data) => {
+
+
+    var config = {
+        method: 'post',
+        url: 'https://jsonplaceholder.typicode.com/posts',
+        data : data
+    };
+
+    let fun = await Axios(config)
+    return fun;
+}
