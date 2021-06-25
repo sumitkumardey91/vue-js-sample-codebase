@@ -71,7 +71,11 @@
 
                     this.$message.error('Oops, username password wrong.');// toust
 
-
+                    this.$router.push(
+                        {
+                            name: 'table'
+                        }
+                    )  // dynamic redirection 
 
                     if (res.status != 200) {
                         // error 

@@ -2,12 +2,23 @@
     <div>
 
       <div class="flex-box">
+
+        <router-link :to="{name: 'parent'}">click for parent</router-link>
+
+          <p v-changeColorDir="'blue'">I am table component</p>
+
+            <p v-pin="10">Stick me 200px from the top of the page</p>
+
+              <h1 v-changeColorDir> I am Default {{database}} </h1>
+
+
         <div>
            <div>
               <input type="radio" value="all" v-model="cityValue" > all
           </div>
             <div v-for="(item, index) in allCityName" :key="index">
-                <input type="radio" :value="item" v-model="cityValue" > {{item}}
+                <input type="radio" :value="item" v-model="cityValue" > 
+                <span v-changeColorDir="'pink'">{{item}}</span>
 
             </div>
         </div>
@@ -16,7 +27,13 @@
 
           <select type="select" v-model="nameValue" >
            
-            <option v-for="(name, i) in nameArr" :key="i" :value="name"> {{name}} </option>
+            <option v-for="(name, i) in nameArr" :key="i" :value="name"> 
+              
+             <span v-changeColorDir> {{name}} </span>
+
+
+
+            </option>
 
           </select>
         </div>
@@ -100,7 +117,8 @@
         nameArr: [],
         filterByName: '',
         checkList: [],
-        multipleItem: []
+        multipleItem: [],
+        database: ''
       }
     },
     watch: {
@@ -227,6 +245,9 @@
         console.log("this.nameArr", this.nameArr)
 
         console.log("this.tableData", this.tableData)
+        window.test = 9000
+
+        this.database = window.test;
 
 
 
